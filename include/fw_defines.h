@@ -40,7 +40,7 @@
 #define K455_COPYOUT               0x0014A7B0
 #define K474_COPYOUT               0x00149E40
 #define K501_COPYOUT               0x001EA520
-#define K503_COPYOUT               0x001EA710
+#define K503_COPYOUT               0x001EA630
 #define K505_COPYOUT               0x001EA630
 
 #endif
