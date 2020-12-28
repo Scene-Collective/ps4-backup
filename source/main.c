@@ -1,19 +1,19 @@
-#include "kernel_utils.h"
+#include "ps4.h"
 
 int _main(struct thread *td) {
+  UNUSED(td);
+
   initKernel();
   initLibc();
-  initPthread();
 
-  uint64_t fw_version = get_fw_version();
-  jailbreak(fw_version);
+  jailbreak();
 
   initSysUtil();
 
-  int usbdir = open("/mnt/usb0/.dirtest", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-  if (usbdir == -1) {
-    usbdir = open("/mnt/usb1/.dirtest", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-    if (usbdir == -1) {
+  FILE *usbdir = fopen("/mnt/usb0/.dirtest", "w");
+  if (!usbdir) {
+    usbdir = fopen("/mnt/usb1/.dirtest", "w");
+    if (!usbdir) {
       copy_file("/system_data/priv/mms/app.db", "/system_data/priv/mms/app.bak");
       copy_file("/system_data/priv/mms/addcont.db", "/system_data/priv/mms/addcont.bak");
       copy_file("/system_data/priv/mms/av_content_bg.db", "/system_data/priv/mms/av_content_bg.bak");
@@ -21,7 +21,7 @@ int _main(struct thread *td) {
       copy_file("/user/system/webkit/webbrowser/appcache/ApplicationCache.db", "/user/system/webkit/webbrowser/appcache/ApplicationCache.bak");
       printf_notification("Internal backup complete.\nThis was only a database backup, use a USB drive for a full backup.");
     } else {
-      close(usbdir);
+      fclose(usbdir);
       printf_notification("Backing up to USB1");
       unlink("/mnt/usb1/.dirtest");
       mkdir("/mnt/usb1/DB_Backup/", 0777);
@@ -58,7 +58,7 @@ int _main(struct thread *td) {
       printf_notification("USB backup complete!");
     }
   } else {
-    close(usbdir);
+    fclose(usbdir);
     printf_notification("Backing up to USB0");
     unlink("/mnt/usb0/.dirtest");
     mkdir("/mnt/usb0/DB_Backup/", 0777);
