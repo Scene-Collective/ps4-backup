@@ -3,7 +3,6 @@ Backup
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8fbd4e1de45e434bb59cee5afb2c1a1e)](https://www.codacy.com/gh/Scene-Collective/ps4-backup/dashboard)
 
 ## Synopsis
-
 Backs up your PS4's databases, licenses, and user data. Note this may not be useful if you have to reinitalize as your keys may change.
 
 For the payloads built with the most recent firmware supported visit [this repo].
