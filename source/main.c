@@ -19,7 +19,7 @@ int _main(struct thread *td) {
       copy_file("/system_data/priv/mms/av_content_bg.db", "/system_data/priv/mms/av_content_bg.bak");
       copy_file("/user/system/webkit/secure/appcache/ApplicationCache.db", "/user/system/webkit/secure/appcache/ApplicationCache.bak");
       copy_file("/user/system/webkit/webbrowser/appcache/ApplicationCache.db", "/user/system/webkit/webbrowser/appcache/ApplicationCache.bak");
-      printf_notification("Internal backup complete.\nThis was only a database backup, use a USB drive for a full backup.");
+      printf_notification("Internal backup complete.\nThis was only a database backup, use a USB device for a full backup.");
     } else {
       fclose(usbdir);
       printf_notification("Backing up to USB1");
