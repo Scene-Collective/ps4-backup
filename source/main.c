@@ -1,3 +1,7 @@
+//#define DEBUG_SOCKET
+#define DEBUG_IP "192.168.2.2"
+#define DEBUG_PORT 9023
+
 #include "ps4.h"
 
 int internal_backup() {
@@ -19,6 +23,11 @@ int _main(struct thread *td) {
 
   initKernel();
   initLibc();
+
+#ifdef DEBUG_SOCKET
+  initNetwork();
+  DEBUG_SOCK = SckConnect(DEBUG_IP, DEBUG_PORT);
+#endif
 
   jailbreak();
 
@@ -108,6 +117,11 @@ int _main(struct thread *td) {
     copy_dir("/system_data/priv/activation", "/mnt/usb0/PS4/Backup/UserData/system_data/priv/activation");
     printf_notification("USB backup complete!");
   }
+
+#ifdef DEBUG_SOCKET
+  printf_socket("\nClosing socket...\n\n");
+  SckClose(DEBUG_SOCK);
+#endif
 
   return 0;
 }
